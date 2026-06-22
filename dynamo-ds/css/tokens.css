@@ -1,0 +1,168 @@
+/* =========================================================
+   DYNAMO — Design Tokens (base del sistema)
+   Sistema de Innovacion y Mejora / Gestion de Mejoramiento Continuo
+
+   Orden: estos tokens son la fuente de verdad. Todos los
+   componentes consumen estas variables, nunca valores sueltos.
+   ========================================================= */
+:root {
+  /* =======================================================
+     1. COLOR — paleta oficial KV
+     ======================================================= */
+  --dyn-yellow: #f8f22b; /* RGB 248,242,43 · CMYK 0,2,83,3   */
+  --dyn-red: #f23d4c;    /* RGB 242,61,76  · CMYK 0,75,69,5  */
+  --dyn-cyan: #00e3e8;   /* RGB 0,227,232  · CMYK 100,2,0,9  */
+
+  /* Variaciones de tono (paleta oficial KV) */
+  /* Amarillo — tints */
+  --dyn-yellow-400: #f9f200;
+  --dyn-yellow-200: #f9f256;
+  --dyn-yellow-100: #f9f29c;
+  /* Rojo — del brillante a los shades */
+  --dyn-red-400: #ff1c44;
+  --dyn-red-600: #b60020;
+  --dyn-red-800: #620004;
+  /* Cian — del brillante a los shades */
+  --dyn-cyan-400: #00e7ea;
+  --dyn-cyan-500: #00bec7;
+  --dyn-cyan-700: #0096a5;
+
+  /* Neutros / superficies (navy oficial) */
+  --dyn-bg-deep: #00172a;   /* fondo base profundo  */
+  --dyn-bg: #002031;        /* fondo                */
+  --dyn-surface: #002031;   /* paneles              */
+  --dyn-surface-2: #003c56; /* paneles elevados     */
+  --dyn-border: #003c56;    /* bordes / lineas HUD  */
+  --dyn-line: #002031;      /* lineas de circuito   */
+
+  /* Texto */
+  --dyn-text: #e8f4f8;
+  --dyn-text-muted: #9fb4c2; /* AA (>=4.5:1) sobre fondos navy */
+  --dyn-text-inverse: #00172a;
+
+  /* Foco accesible (anillo visible) */
+  --dyn-focus-ring: 0 0 0 2px var(--dyn-bg-deep), 0 0 0 4px var(--dyn-cyan);
+
+  /* Semanticos */
+  --dyn-primary: var(--dyn-cyan);
+  --dyn-accent: var(--dyn-yellow);
+  --dyn-danger: var(--dyn-red);
+  --dyn-success: var(--dyn-cyan);
+
+  /* =======================================================
+     2. TRAZOS — grosores de borde / stroke
+     ======================================================= */
+  --dyn-stroke-hair: 1px;   /* lineas finas, divisores      */
+  --dyn-stroke: 2px;        /* borde base de componentes    */
+  --dyn-stroke-bold: 3px;   /* enfasis / estados activos    */
+  --dyn-stroke-heavy: 4px;  /* acentos / barras laterales   */
+
+  /* =======================================================
+     3. RADIOS — esquinas
+     ======================================================= */
+  --dyn-radius-xs: 2px;
+  --dyn-radius-sm: 4px;
+  --dyn-radius-md: 8px;
+  --dyn-radius-lg: 14px;
+  --dyn-radius-xl: 20px;
+  --dyn-radius-pill: 999px;
+  --dyn-radius-circle: 50%;
+
+  /* Corte biselado HUD (forma de marca) */
+  --dyn-bevel: 14px;
+  --dyn-clip-hud: polygon(
+    var(--dyn-bevel) 0,
+    100% 0,
+    100% calc(100% - var(--dyn-bevel)),
+    calc(100% - var(--dyn-bevel)) 100%,
+    0 100%,
+    0 var(--dyn-bevel)
+  );
+
+  /* =======================================================
+     4. ESPACIADO — escala base 4px
+     ======================================================= */
+  --dyn-space-0: 0;
+  --dyn-space-1: 4px;
+  --dyn-space-2: 8px;
+  --dyn-space-3: 12px;
+  --dyn-space-4: 16px;
+  --dyn-space-5: 24px;
+  --dyn-space-6: 32px;
+  --dyn-space-7: 48px;
+  --dyn-space-8: 64px;
+
+  /* =======================================================
+     5. PADDINGS — paddings semanticos de componente
+     Alineados a la grilla de 4px (todos multiplos de 4).
+     ======================================================= */
+  --dyn-pad-compact: 8px 16px;   /* botones sm, chips         */
+  --dyn-pad-snug: 12px 24px;     /* botones / inputs base     */
+  --dyn-pad-wide: 16px 40px;     /* botones lg                */
+  --dyn-pad-base: 12px 16px;     /* celdas, list items        */
+  --dyn-pad-roomy: 24px;         /* paneles, cards            */
+  --dyn-pad-section: 40px;       /* secciones / layout        */
+
+  /* =======================================================
+     6. SOMBRAS — elevacion + glows neon
+     ======================================================= */
+  --dyn-shadow-none: none;
+  --dyn-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --dyn-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --dyn-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --dyn-shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.55);
+  /* sombra interior para inputs / superficies hundidas */
+  --dyn-shadow-inset: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+
+  /* Glows neon (acentos de marca) */
+  --dyn-glow-cyan: 0 0 12px rgba(0, 227, 232, 0.55);
+  --dyn-glow-yellow: 0 0 12px rgba(248, 242, 43, 0.5);
+  --dyn-glow-red: 0 0 12px rgba(242, 61, 76, 0.55);
+  --dyn-glow-cyan-lg: 0 0 24px rgba(0, 227, 232, 0.6);
+  /* glow para filtros SVG (drop-shadow no acepta box-shadow) */
+  --dyn-glow-cyan-drop: drop-shadow(0 0 6px rgba(0, 227, 232, 0.5));
+
+  /* =======================================================
+     7. TIPOGRAFIA
+     ======================================================= */
+  --dyn-font-display: "Audiowide", "Space Grotesk", system-ui, sans-serif;
+  --dyn-font-body: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --dyn-font-logo: "Cyberpunk Design", "Audiowide", sans-serif;
+  --dyn-font-alt: "Gyokz", "Space Grotesk", sans-serif;
+
+  /* Escala tipografica */
+  --dyn-fs-2xs: 10px;
+  --dyn-fs-xs: 12px;
+  --dyn-fs-sm: 14px;
+  --dyn-fs-md: 16px;
+  --dyn-fs-lg: 20px;
+  --dyn-fs-xl: 28px;
+  --dyn-fs-xxl: 32px;
+  --dyn-fs-2xl: 40px;
+  --dyn-fs-3xl: 56px;
+
+  /* Pesos */
+  --dyn-fw-light: 300;
+  --dyn-fw-regular: 400;
+  --dyn-fw-medium: 500;
+  --dyn-fw-bold: 700;
+
+  /* Interlineado / tracking */
+  --dyn-lh-tight: 1.1;
+  --dyn-lh-base: 1.6;
+  --dyn-ls-wide: 0.08em;
+  --dyn-ls-wider: 0.14em;
+
+  /* =======================================================
+     8. MOVIMIENTO Y CAPAS
+     ======================================================= */
+  --dyn-transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --dyn-transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --dyn-transition-slow: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  --dyn-z-base: 1;
+  --dyn-z-sticky: 100;
+  --dyn-z-overlay: 1000;
+  --dyn-z-modal: 1100;
+  --dyn-z-toast: 1200;
+}

@@ -1,0 +1,888 @@
+/* =========================================================
+   DYNAMO — Re-skin de la pantalla de inicio (index.html)
+   Mapea el snapshot de Tailwind de "Gestion de Ideas" al
+   sistema de diseno del Storybook Dynamo (HUD navy + neon).
+   Consume los tokens de tokens.css. Se carga DESPUES del CSS
+   de Next, por eso usa selectores especificos + !important
+   donde haga falta para ganarle a las utilidades de Tailwind.
+   ========================================================= */
+
+/* =======================================================
+   1. BASE — fondo navy profundo + tipografia de marca
+   ======================================================= */
+html body {
+  font-family: var(--dyn-font-body) !important;
+  color: var(--dyn-text) !important;
+  background-color: var(--dyn-bg-deep) !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Foco accesible consistente con el storybook */
+html body a:focus-visible,
+html body button:focus-visible,
+html body input:focus-visible,
+html body [tabindex]:focus-visible {
+  outline: none;
+  box-shadow: var(--dyn-focus-ring);
+  border-radius: var(--dyn-radius-xs);
+}
+
+/* =======================================================
+   2. SIDEBAR (aside) — superficie + lineas HUD
+   ======================================================= */
+html body aside {
+  background: var(--dyn-surface) !important;
+  border-right: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+}
+/* Cabecera del logo + header tienen 'border-b border-neutral-200' */
+html body aside > div:first-child,
+html body header {
+  border-bottom: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+  background: var(--dyn-surface) !important;
+}
+
+/* Links de navegacion — bloque HUD cuadrado con padding en tokens
+   (el storybook .dyn-nav__link es cuadrado, con acento de borde izq). */
+html body aside nav a,
+html body aside nav button {
+  color: var(--dyn-text) !important;
+  font-family: var(--dyn-font-body) !important;
+  padding: var(--dyn-space-2) var(--dyn-space-4) !important;
+  border-radius: 0 !important;
+  transition: var(--dyn-transition-fast) !important;
+}
+html body aside nav a:hover,
+html body aside nav button:hover {
+  background: var(--dyn-surface-2) !important;
+  color: var(--dyn-cyan) !important;
+}
+/* Encabezados de grupo (Usuarios / Comites / Ideas) en tipografia display */
+html body aside nav > div > button > span {
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase;
+  letter-spacing: var(--dyn-ls-wide);
+  font-size: var(--dyn-fs-xs) !important;
+  color: var(--dyn-text-muted) !important;
+}
+/* "Inicio" es un item de primer nivel: que iguale a los grupos
+   (display + mayusculas). El color lo da el estado del link (activo=cian). */
+html body aside nav > a > span {
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase !important;
+  letter-spacing: var(--dyn-ls-wide) !important;
+  font-size: var(--dyn-fs-xs) !important;
+}
+/* Link activo (Inicio): el snapshot lo marca con bg-dynamo-blue-dark */
+html body aside nav a.bg-dynamo-blue-dark {
+  background: var(--dyn-surface-2) !important;
+  color: var(--dyn-cyan) !important;
+  border-left: var(--dyn-stroke-bold) solid var(--dyn-cyan) !important;
+  box-shadow: inset 0 0 18px rgba(0, 227, 232, 0.12) !important;
+}
+/* Separadores de sub-menu */
+html body aside nav .border-l-2 {
+  border-left: var(--dyn-stroke) solid var(--dyn-border) !important;
+}
+
+/* =======================================================
+   3. HEADER — usuario + acciones
+   ======================================================= */
+html body header span,
+html body header .text-neutral-700 {
+  color: var(--dyn-text) !important;
+}
+/* Avatar circular: usa cian de marca */
+html body header .rounded-full.bg-dynamo-blue-dark {
+  background: var(--dyn-cyan) !important;
+  color: var(--dyn-text-inverse) !important;
+  font-family: var(--dyn-font-display) !important;
+  box-shadow: var(--dyn-glow-cyan) !important;
+}
+/* Iconos de header */
+html body header svg {
+  color: var(--dyn-text-muted) !important;
+}
+
+/* =======================================================
+   3b. ICONOS — trazo fino HUD del storybook (.dyn-ico = 1.6)
+   Los SVG de Lucide traen stroke-width=2 (en el <svg> o en cada
+   figura); el sistema Dynamo usa 1.6. Se fuerza en ambos niveles.
+   ======================================================= */
+html body aside svg,
+html body aside svg :is(path, line, circle, rect, polyline, polygon, ellipse),
+html body header svg,
+html body header svg :is(path, line, circle, rect, polyline, polygon, ellipse),
+html body main [data-slot="button"] svg,
+html body main [data-slot="button"] svg :is(path, line, circle, rect, polyline, polygon, ellipse) {
+  stroke-width: 1.6 !important;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Glow neon en el icono del item activo del menu (acento de marca) */
+html body aside nav a.bg-dynamo-blue-dark svg {
+  filter: var(--dyn-glow-cyan-drop);
+}
+
+/* =======================================================
+   4. MAIN — fondo con grilla de circuito HUD
+   ======================================================= */
+html body main {
+  background-color: var(--dyn-bg-deep) !important;
+  background-image:
+    linear-gradient(rgba(0, 60, 86, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 60, 86, 0.22) 1px, transparent 1px) !important;
+  background-size: 28px 28px !important;
+}
+
+/* =======================================================
+   5. TIPOGRAFIA DE CONTENIDO
+   ======================================================= */
+/* H1 de bienvenida → display Audiowide, MAYUSCULA SOSTENIDA
+   (rol "Títulos / Display" del storybook: uppercase + ls 0.04em) */
+html body h1 {
+  font-family: var(--dyn-font-display) !important;
+  font-weight: var(--dyn-fw-regular) !important;
+  font-size: var(--dyn-fs-2xl) !important;
+  line-height: var(--dyn-lh-tight) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: var(--dyn-text) !important;
+}
+/* Subtitulos de bloque (Comites futuros, etc.) → display + acento */
+html body h2 {
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase;
+  letter-spacing: var(--dyn-ls-wide);
+  font-size: var(--dyn-fs-lg) !important;
+  color: var(--dyn-yellow) !important;
+  border-left: var(--dyn-stroke-heavy) solid var(--dyn-yellow) !important;
+  padding-left: var(--dyn-space-3) !important;
+}
+/* Texto secundario */
+html body main .text-muted-foreground {
+  color: var(--dyn-text-muted) !important;
+}
+
+/* =======================================================
+   6. BOTONES — estilo HUD (display + clip biselado)
+   ======================================================= */
+html body [data-slot="button"] {
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase !important;
+  letter-spacing: var(--dyn-ls-wide) !important;
+  padding: var(--dyn-pad-compact) !important; /* 8px 16px, escala 4px */
+  border: var(--dyn-stroke) solid transparent !important;
+  border-radius: 0 !important;
+  clip-path: var(--dyn-clip-hud) !important;
+  transition: var(--dyn-transition) !important;
+}
+html body [data-slot="button"]:hover {
+  filter: brightness(1.12);
+}
+/* Estado activo (presionado) — igual que el storybook */
+html body [data-slot="button"]:active {
+  transform: translateY(1px);
+  filter: brightness(0.92);
+}
+/* Foco accesible: anillo de marca que reemplaza el glow (igual que el
+   storybook .is-focus). Lleva !important para ganarle al box-shadow de
+   la variante, que tambien es !important. */
+html body [data-slot="button"]:focus-visible,
+html body header [data-slot="button"]:focus-visible {
+  outline: none !important;
+  box-shadow: var(--dyn-focus-ring) !important;
+}
+/* Variante primaria (Ver todos) */
+html body [data-slot="button"][data-variant="default"] {
+  color: var(--dyn-text-inverse) !important;
+  background: var(--dyn-cyan) !important;
+  border-color: var(--dyn-cyan) !important;
+  box-shadow: var(--dyn-glow-cyan) !important;
+}
+/* Variante outline (Comites pendientes) → ghost cian con animacion de
+   trazado (dyn-trim): 4 lineas que se dibujan en el borde al hover. */
+html body [data-slot="button"][data-variant="outline"] {
+  color: var(--dyn-cyan) !important;
+  background-color: transparent !important;
+  border-color: var(--dyn-cyan) !important;
+  box-shadow: var(--dyn-glow-cyan) !important;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  /* SIN !important en estas tres: un @keyframes NO puede animar una
+     propiedad marcada !important. Tailwind no toca background-image/
+     position/size en estos botones, asi que no hace falta. */
+  background-image:
+    linear-gradient(#aefeff, #aefeff), linear-gradient(#aefeff, #aefeff),
+    linear-gradient(#aefeff, #aefeff), linear-gradient(#aefeff, #aefeff);
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  background-size: 0 2px, 2px 0, 0 2px, 2px 0;
+}
+/* Hover ghost: conserva el brillo general del boton (.dyn-btn:hover del
+   storybook) y dibuja el borde con la animacion de trazado. */
+html body [data-slot="button"][data-variant="outline"]:hover {
+  border-color: transparent !important;
+  animation: dyn-trim 0.75s linear forwards;
+}
+@keyframes dyn-trim {
+  0% {
+    background-size: 0 2px, 2px 0, 0 2px, 2px 0;
+  }
+  50% {
+    background-size: 100% 2px, 2px 0, 100% 2px, 2px 0;
+  }
+  100% {
+    background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+  }
+}
+/* Boton "Cerrar Sesion" en header → ghost discreto (sin bisel ni glow,
+   anula el clip-path de la regla base ahora que es body-wide) */
+html body header [data-slot="button"] {
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase !important;
+  letter-spacing: var(--dyn-ls-wide) !important;
+  padding: var(--dyn-space-2) var(--dyn-space-3) !important; /* 8px 12px */
+  color: var(--dyn-text-muted) !important;
+  border-color: transparent !important;
+  border-radius: var(--dyn-radius-sm) !important;
+  clip-path: none !important;
+}
+html body header [data-slot="button"]:hover {
+  color: var(--dyn-red) !important;
+  background: transparent !important;
+}
+
+/* =======================================================
+   7. CARDS / PANELES — HUD con borde superior neon
+   ======================================================= */
+html body main [data-slot="card"] {
+  background: linear-gradient(160deg, var(--dyn-surface), var(--dyn-bg)) !important;
+  color: var(--dyn-text) !important;
+  border: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+  border-top: var(--dyn-stroke) solid var(--dyn-cyan) !important;
+  border-radius: 0 !important;
+  clip-path: var(--dyn-clip-hud);
+  box-shadow: var(--dyn-shadow-lg), var(--dyn-glow-cyan) !important;
+}
+html body main [data-slot="card-title"] {
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase;
+  letter-spacing: var(--dyn-ls-wide);
+  font-size: var(--dyn-fs-md) !important;
+  color: var(--dyn-cyan) !important;
+}
+html body main [data-slot="card-description"] {
+  color: var(--dyn-text-muted) !important;
+}
+
+/* =======================================================
+   8. GRAFICA — barras del storybook con ejes X / Y
+   Recupera los ejes que tenia el chart original (escala 0..4 en Y
+   con lineas de cuadricula punteadas, categorias en X) pero con los
+   estilos y tokens del storybook (barras con gradiente + glow neon).
+   Layout en grid 2x2: [Y][plot] / [esquina][X].
+   ======================================================= */
+html body main .dyn-axischart {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  column-gap: var(--dyn-space-3);
+  padding: var(--dyn-space-4) var(--dyn-space-4) 0 0;
+}
+/* Eje Y: numeros 4..0 alineados a cada linea de cuadricula */
+html body main .dyn-axischart__yaxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--dyn-font-display);
+  font-size: var(--dyn-fs-2xs);
+  color: var(--dyn-text-muted) !important;
+}
+html body main .dyn-axischart__yaxis span {
+  display: flex;
+  align-items: center;
+  height: 0; /* centra el numero exactamente sobre su linea */
+}
+/* Area de ploteo: lineas de eje (X abajo, Y a la izquierda) */
+html body main .dyn-axischart__plot {
+  position: relative;
+  border-left: var(--dyn-stroke-hair) solid var(--dyn-border);
+  border-bottom: var(--dyn-stroke-hair) solid var(--dyn-border);
+}
+/* Cuadricula horizontal punteada (5 lineas: 0,1,2,3,4) */
+html body main .dyn-axischart__grid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+html body main .dyn-axischart__grid i {
+  display: block;
+  border-top: var(--dyn-stroke-hair) dashed var(--dyn-border);
+}
+/* Eje X: categorias bajo cada barra */
+html body main .dyn-axischart__xaxis {
+  grid-column: 2;
+  display: flex;
+  justify-content: space-around;
+  gap: var(--dyn-space-4);
+  padding: var(--dyn-space-2) var(--dyn-space-2) 0;
+  font-family: var(--dyn-font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--dyn-ls-wide);
+  font-size: var(--dyn-fs-xs);
+  color: var(--dyn-text-muted) !important;
+}
+html body main .dyn-axischart__xaxis span {
+  flex: 1 1 0;
+  max-width: 160px;
+  text-align: center;
+}
+/* Barras dentro del area de ploteo, ancladas al eje X */
+html body main .dyn-bars {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: var(--dyn-space-4);
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--dyn-space-2);
+}
+html body main .dyn-bar {
+  position: relative;
+  flex: 1 1 0;
+  max-width: 160px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+/* Relleno neon que crece desde abajo (idéntico al storybook) */
+html body main .dyn-bar__fill {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(var(--dyn-cyan), var(--dyn-cyan-700));
+  box-shadow: var(--dyn-glow-cyan);
+  border-radius: var(--dyn-radius-xs) var(--dyn-radius-xs) 0 0;
+  transform-origin: bottom center;
+  transition: filter var(--dyn-transition-fast);
+  animation: dyn-bar-grow 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* Realce al pasar el cursor sobre la columna */
+html body main .dyn-bar:hover .dyn-bar__fill {
+  filter: brightness(1.15);
+}
+/* Tooltip de datos (recupera la info que mostraba el chart al hover).
+   Estilo del storybook (.dyn-tooltip__bubble): surface-2 + borde cian + glow. */
+html body main .dyn-bar__tip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+  background: var(--dyn-surface-2);
+  border: var(--dyn-stroke-hair) solid var(--dyn-cyan);
+  box-shadow: var(--dyn-glow-cyan);
+  border-radius: var(--dyn-radius-sm);
+  padding: var(--dyn-space-2) var(--dyn-space-3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dyn-transition-fast);
+  z-index: 5;
+}
+html body main .dyn-bar:hover .dyn-bar__tip {
+  opacity: 1;
+}
+html body main .dyn-bar__tip-label {
+  font-family: var(--dyn-font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--dyn-ls-wide);
+  font-size: var(--dyn-fs-2xs);
+  color: var(--dyn-text-muted);
+}
+html body main .dyn-bar__tip-value {
+  font-family: var(--dyn-font-display);
+  font-size: var(--dyn-fs-sm);
+  color: var(--dyn-cyan);
+}
+@keyframes dyn-bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body main .dyn-bar__fill {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   9. COMPONENTES COMUNES — resto de paginas (usuarios, comites,
+   ideas, login, modales). Mapea las utilidades de Tailwind del
+   tema claro a los tokens/estilos del storybook Dynamo.
+   ========================================================= */
+
+/* ---- 9.1 Mapeo de superficies / bordes / texto a tokens ---- */
+html body .bg-white,
+html body .bg-card {
+  background-color: var(--dyn-surface) !important;
+  color: var(--dyn-text) !important;
+}
+html body .bg-neutral-50,
+html body .bg-background {
+  background-color: var(--dyn-bg) !important;
+}
+html body .bg-neutral-100,
+html body .bg-muted,
+html body .bg-accent {
+  background-color: var(--dyn-surface-2) !important;
+}
+html body .border-neutral-100,
+html body .border-neutral-200,
+html body .border-zinc-800,
+html body .border-input,
+html body .border-border {
+  border-color: var(--dyn-border) !important;
+}
+html body .text-neutral-900,
+html body .text-neutral-800,
+html body .text-foreground,
+html body .text-card-foreground {
+  color: var(--dyn-text) !important;
+}
+html body .text-neutral-700,
+html body .text-neutral-600,
+html body .text-neutral-500,
+html body .text-neutral-400,
+html body .text-muted-foreground {
+  color: var(--dyn-text-muted) !important;
+}
+/* 'text-dynamo-blue-dark' es azul muy oscuro: invisible sobre el tema
+   navy. Se reasigna al cian de marca (iconos/links visibles). */
+html body .text-dynamo-blue-dark,
+html body .hover\:text-dynamo-blue-dark:hover {
+  color: var(--dyn-cyan) !important;
+}
+
+/* ---- 9.2 Tablas (storybook .dyn-table) ---- */
+html body main table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--dyn-fs-sm);
+  color: var(--dyn-text);
+}
+html body main thead th,
+html body main th {
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase;
+  letter-spacing: var(--dyn-ls-wide);
+  font-size: var(--dyn-fs-xs) !important;
+  color: var(--dyn-cyan) !important;
+  text-align: left;
+  background: transparent !important;
+  border-bottom: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+}
+html body main td {
+  color: var(--dyn-text) !important;
+  border-bottom: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+}
+html body main tbody tr {
+  background: transparent !important;
+}
+html body main tbody tr:hover {
+  background: var(--dyn-surface-2) !important;
+}
+
+/* ---- 9.3 Campos de formulario (storybook .dyn-field / .dyn-select) ----
+   Body-wide para cubrir modales (portal) y login fuera de <main>. */
+html body .border-input,
+html body select,
+html body textarea {
+  background-color: var(--dyn-bg-deep) !important;
+  color: var(--dyn-text) !important;
+  border: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+  border-left: var(--dyn-stroke) solid var(--dyn-cyan) !important;
+  border-radius: var(--dyn-radius-sm) !important;
+  box-shadow: var(--dyn-shadow-inset) !important;
+}
+/* <select> nativo (incluye los desplegables convertidos por dynamo-ui.js)
+   con el aspecto .dyn-select del storybook: chevron cian propio.
+   Mismas metricas que los inputs (8px vert · 14px) para igualar altura. */
+html body select {
+  font-family: var(--dyn-font-body) !important;
+  font-size: var(--dyn-fs-sm) !important; /* 14px, igual que los inputs */
+  line-height: 20px !important;
+  min-height: 40px !important; /* iguala la altura h-10 de los inputs */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  /* 8px arriba/abajo · 12px izq · espacio a la derecha para el chevron */
+  padding: var(--dyn-space-2) var(--dyn-space-7) var(--dyn-space-2) var(--dyn-space-3) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300e3e8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right var(--dyn-space-3) center !important;
+  background-size: 16px !important;
+  cursor: pointer;
+}
+html body select.dyn-native-select {
+  width: 100%;
+}
+/* ---- Datepicker custom (storybook): campo + calendario desplegable ---- */
+html body .dyn-datepicker {
+  position: relative;
+  width: 100%;
+}
+html body .dyn-datepicker__field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dyn-space-2);
+  width: 100%;
+  min-height: 40px;
+  font-family: var(--dyn-font-body) !important;
+  font-size: var(--dyn-fs-sm);
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--dyn-text);
+  background-color: var(--dyn-bg-deep);
+  border: var(--dyn-stroke-hair) solid var(--dyn-border);
+  border-left: var(--dyn-stroke) solid var(--dyn-cyan);
+  border-radius: var(--dyn-radius-sm);
+  box-shadow: var(--dyn-shadow-inset);
+  padding: var(--dyn-space-2) var(--dyn-space-3);
+  cursor: pointer;
+}
+html body .dyn-datepicker__field:hover {
+  border-color: var(--dyn-cyan);
+}
+html body .dyn-datepicker__txt.is-placeholder {
+  color: var(--dyn-text-muted);
+}
+html body .dyn-datepicker__ico {
+  width: 16px;
+  height: 16px;
+  color: var(--dyn-cyan);
+  flex-shrink: 0;
+}
+html body .dyn-datepicker__pop {
+  position: absolute;
+  z-index: var(--dyn-z-overlay);
+  top: calc(100% + var(--dyn-space-2));
+  left: 0;
+  width: 288px;
+  max-width: 92vw;
+  background: var(--dyn-surface-2);
+  border: var(--dyn-stroke-hair) solid var(--dyn-cyan);
+  border-radius: var(--dyn-radius-sm);
+  box-shadow: var(--dyn-shadow-lg), var(--dyn-glow-cyan);
+  padding: var(--dyn-space-4);
+}
+html body .dyn-datepicker__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--dyn-space-3);
+}
+html body .dyn-datepicker__title {
+  font-family: var(--dyn-font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--dyn-ls-wide);
+  font-size: var(--dyn-fs-sm);
+  color: var(--dyn-cyan);
+}
+html body .dyn-datepicker__nav {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--dyn-fs-lg);
+  line-height: 1;
+  color: var(--dyn-text);
+  background: var(--dyn-surface);
+  border: var(--dyn-stroke-hair) solid var(--dyn-border);
+  border-radius: var(--dyn-radius-sm);
+  cursor: pointer;
+}
+html body .dyn-datepicker__nav:hover {
+  border-color: var(--dyn-cyan);
+  color: var(--dyn-cyan);
+}
+html body .dyn-datepicker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+html body .dyn-datepicker__dow {
+  font-family: var(--dyn-font-display);
+  font-size: var(--dyn-fs-2xs);
+  color: var(--dyn-text-muted);
+  text-align: center;
+  padding: var(--dyn-space-1) 0;
+}
+html body .dyn-datepicker__day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--dyn-font-body);
+  font-size: var(--dyn-fs-xs);
+  color: var(--dyn-text);
+  background: transparent;
+  border: var(--dyn-stroke-hair) solid transparent;
+  border-radius: var(--dyn-radius-xs);
+  cursor: pointer;
+}
+html body .dyn-datepicker__day:hover {
+  background: rgba(0, 227, 232, 0.12);
+  color: var(--dyn-cyan);
+}
+html body .dyn-datepicker__day.is-selected {
+  background: var(--dyn-cyan);
+  color: var(--dyn-text-inverse);
+  box-shadow: var(--dyn-glow-cyan);
+}
+
+/* ---- Menu de usuario (combina avatar+nombre con Cerrar Sesion) ---- */
+html body .dyn-usermenu {
+  position: relative;
+}
+html body .dyn-usermenu__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--dyn-space-3);
+  background: transparent;
+  border: var(--dyn-stroke-hair) solid transparent;
+  border-radius: var(--dyn-radius-sm);
+  padding: var(--dyn-space-1) var(--dyn-space-2);
+  cursor: pointer;
+  color: var(--dyn-text);
+  transition: var(--dyn-transition-fast);
+}
+html body .dyn-usermenu__trigger:hover,
+html body .dyn-usermenu__trigger.is-open {
+  background: var(--dyn-surface-2);
+  border-color: var(--dyn-border);
+}
+html body .dyn-usermenu__chev svg {
+  color: var(--dyn-text-muted);
+  transition: transform var(--dyn-transition);
+}
+html body .dyn-usermenu__trigger.is-open .dyn-usermenu__chev svg {
+  transform: rotate(180deg);
+}
+html body .dyn-usermenu__panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--dyn-space-2));
+  min-width: 100%; /* alinea el ancho con el trigger (no mas grande) */
+  width: max-content;
+  max-width: 240px;
+  background: var(--dyn-surface-2);
+  border: var(--dyn-stroke-hair) solid var(--dyn-cyan);
+  border-radius: var(--dyn-radius-sm);
+  box-shadow: var(--dyn-shadow-lg), var(--dyn-glow-cyan);
+  padding: var(--dyn-space-1);
+  z-index: var(--dyn-z-overlay);
+}
+html body .dyn-usermenu__item[data-slot="button"],
+html body .dyn-usermenu__item {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: flex-start !important;
+  gap: var(--dyn-space-2);
+  padding: var(--dyn-space-2) var(--dyn-space-3) !important;
+  color: var(--dyn-text) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: var(--dyn-radius-xs) !important;
+  clip-path: none !important;
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase !important;
+  letter-spacing: var(--dyn-ls-wide) !important;
+  font-size: var(--dyn-fs-xs) !important;
+  cursor: pointer;
+}
+html body .dyn-usermenu__item:hover {
+  background: rgba(242, 61, 76, 0.14) !important;
+  color: var(--dyn-red) !important;
+}
+html body input {
+  color: var(--dyn-text) !important;
+  background-color: transparent !important;
+}
+html body input.border-0 {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html body ::placeholder {
+  color: var(--dyn-text-muted) !important;
+  opacity: 1;
+}
+html body .border-input:focus-within,
+html body input:focus,
+html body select:focus,
+html body textarea:focus {
+  border-color: var(--dyn-cyan) !important;
+  box-shadow: var(--dyn-shadow-inset), var(--dyn-glow-cyan) !important;
+  outline: none !important;
+}
+
+/* ---- 9.4 Badges / pills de estado y rol → storybook .dyn-badge ----
+   Chip HUD: fondo transparente, borde + texto del color, punto a la
+   izquierda, esquinas radius-sm (no pill), display en mayusculas. */
+html body .bg-green-100,
+html body .bg-purple-100,
+html body .bg-blue-100,
+html body .bg-red-100,
+html body .bg-yellow-100,
+html body .bg-orange-100 {
+  display: inline-flex !important;
+  align-items: center;
+  gap: var(--dyn-space-2);
+  font-family: var(--dyn-font-display) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-size: var(--dyn-fs-2xs) !important;
+  line-height: 1.4;
+  padding: var(--dyn-space-1) var(--dyn-space-3) !important;
+  background-color: transparent !important;
+  border: var(--dyn-stroke-hair) solid currentColor !important;
+  border-radius: var(--dyn-radius-sm) !important;
+}
+/* punto indicador (como el .dyn-badge::before del storybook) */
+html body .bg-green-100::before,
+html body .bg-purple-100::before,
+html body .bg-blue-100::before,
+html body .bg-red-100::before,
+html body .bg-yellow-100::before,
+html body .bg-orange-100::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--dyn-radius-circle);
+  background: currentColor;
+  flex-shrink: 0;
+}
+/* colores semanticos por tipo de badge */
+html body .bg-green-100,
+html body .text-green-800,
+html body .text-green-700 {
+  color: var(--dyn-cyan) !important;
+}
+html body .bg-purple-100,
+html body .text-purple-800,
+html body .text-purple-700,
+html body .bg-yellow-100,
+html body .text-yellow-800 {
+  color: var(--dyn-yellow) !important;
+}
+html body .bg-blue-100,
+html body .text-blue-800 {
+  color: var(--dyn-cyan) !important;
+}
+html body .bg-red-100,
+html body .text-red-800,
+html body .bg-orange-100,
+html body .text-orange-800 {
+  color: var(--dyn-red) !important;
+}
+
+/* ---- 9.4b Selects / desplegables (storybook .dyn-select) ----
+   Los triggers de Radix/shadcn son <button data-variant="outline">; sin
+   este bloque heredaban el boton ghost (glow cian) y parecian siempre
+   seleccionados. Aqui se les da el aspecto de campo select del storybook. */
+html body [data-slot="popover-trigger"],
+html body [data-slot="select-trigger"],
+html body [role="combobox"] {
+  font-family: var(--dyn-font-body) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-weight: var(--dyn-fw-regular) !important;
+  color: var(--dyn-text) !important;
+  background-color: var(--dyn-bg-deep) !important;
+  border: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+  border-left: var(--dyn-stroke) solid var(--dyn-cyan) !important;
+  border-radius: var(--dyn-radius-sm) !important;
+  box-shadow: var(--dyn-shadow-inset) !important;
+  clip-path: none !important;
+  filter: none !important;
+  animation: none !important;
+}
+html body [data-slot="popover-trigger"]:hover,
+html body [data-slot="select-trigger"]:hover,
+html body [role="combobox"]:hover {
+  background-color: var(--dyn-bg-deep) !important;
+  filter: none !important;
+}
+/* abierto / con foco → acento cian (sin parecer "seleccionado" en reposo) */
+html body [data-slot="popover-trigger"][data-state="open"],
+html body [data-slot="select-trigger"][data-state="open"],
+html body [role="combobox"][aria-expanded="true"],
+html body [data-slot="popover-trigger"]:focus-visible,
+html body [role="combobox"]:focus-visible {
+  border-color: var(--dyn-cyan) !important;
+  box-shadow: var(--dyn-shadow-inset), var(--dyn-glow-cyan) !important;
+}
+/* chevron del trigger en cian de marca */
+html body [data-slot="popover-trigger"] svg,
+html body [data-slot="select-trigger"] svg,
+html body [role="combobox"] svg {
+  color: var(--dyn-cyan) !important;
+}
+
+/* ---- 9.4c Panel del desplegable abierto + opciones ---- */
+html body [role="listbox"],
+html body [data-slot="popover-content"],
+html body [data-slot="select-content"],
+html body [data-slot="command"] {
+  background-color: var(--dyn-surface-2) !important;
+  color: var(--dyn-text) !important;
+  border: var(--dyn-stroke-hair) solid var(--dyn-cyan) !important;
+  border-radius: var(--dyn-radius-sm) !important;
+  box-shadow: var(--dyn-shadow-lg), var(--dyn-glow-cyan) !important;
+}
+html body [role="option"],
+html body [data-slot="select-item"],
+html body [data-slot="command-item"] {
+  color: var(--dyn-text) !important;
+  border-radius: var(--dyn-radius-xs) !important;
+}
+html body [role="option"]:hover,
+html body [data-slot="select-item"]:hover,
+html body [data-slot="command-item"]:hover,
+html body [role="option"][data-highlighted],
+html body [data-slot="select-item"][data-highlighted],
+html body [role="option"][data-selected="true"],
+html body [data-slot="command-item"][data-selected="true"],
+html body [role="option"][aria-selected="true"] {
+  background-color: rgba(0, 227, 232, 0.12) !important;
+  color: var(--dyn-cyan) !important;
+}
+html body [data-slot="select-item"][data-state="checked"] {
+  color: var(--dyn-cyan) !important;
+}
+
+/* ---- 9.5 Modales / overlays (storybook .dyn-lightbox) ---- */
+html body .fixed.inset-0.bg-black\/50,
+html body .fixed.inset-0 {
+  background-color: rgba(0, 8, 16, 0.86) !important;
+}
+/* el panel del modal hereda el look de card via .bg-white/.bg-card,
+   reforzamos borde cian de marca */
+html body [role="dialog"],
+html body [data-slot="dialog-content"] {
+  border: var(--dyn-stroke-hair) solid var(--dyn-border) !important;
+  border-top: var(--dyn-stroke) solid var(--dyn-cyan) !important;
+  box-shadow: var(--dyn-shadow-xl), var(--dyn-glow-cyan) !important;
+}
