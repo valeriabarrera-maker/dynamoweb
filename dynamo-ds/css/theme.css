@@ -61,10 +61,10 @@ html[data-theme="light"] body main {
     linear-gradient(90deg, rgba(0, 60, 86, 0.06) 1px, transparent 1px) !important;
 }
 
-/* Logo Linktic: el SVG tiene 'fill:white' fijo (pensado para navy). En
-   claro queda invisible, asi que lo invertimos a oscuro. */
+/* Logo Linktic: el SVG por defecto es blanco (pensado para navy). En
+   claro se sustituye por la version a color para fondo claro. */
 html[data-theme="light"] body img[src*="linktic"] {
-  filter: invert(1);
+  content: url("../img/linktic-light.svg");
 }
 
 /* Overlay de modales: un velo mas claro encaja mejor con el tema. */
