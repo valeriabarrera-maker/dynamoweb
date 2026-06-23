@@ -14,7 +14,8 @@
   --dyn-cyan: #00e3e8;   /* RGB 0,227,232  · CMYK 100,2,0,9  */
 
   /* Variaciones de tono (paleta oficial KV) */
-  /* Amarillo — tints */
+  /* Amarillo — del shade legible a los tints */
+  --dyn-yellow-700: #8a7f00; /* oro profundo: legible sobre claro (AA texto grande) */
   --dyn-yellow-400: #f9f200;
   --dyn-yellow-200: #f9f256;
   --dyn-yellow-100: #f9f29c;
