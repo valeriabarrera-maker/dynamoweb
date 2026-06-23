@@ -4,3 +4,4 @@
 # Tooling / agente local
 .gstack/
 .claude/
+.vercel
