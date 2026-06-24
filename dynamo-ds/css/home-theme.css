@@ -939,11 +939,21 @@ html body .dyn-pin-concejo:hover {
   filter: drop-shadow(0 0 16px rgba(0, 227, 232, 0.35));
 }
 
-/* Logo Dynamo dentro del banner de bienvenida */
+/* Logo Dynamo: posicionado al lado del robot, dentro del banner */
 html body .dyn-hero__logo {
-  display: block;
-  height: 38px;
+  position: absolute;
+  z-index: 2;
+  top: 34px;
+  right: 24px;
+  height: 40px;
   width: auto;
-  margin-bottom: 1rem;
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
 }
+
+/* Logo Dynamo (SVG inline): amarillo en oscuro, azul de marca en claro */
+html body .dyn-hero__logo .dlogo-1 { fill: #f8f156; }
+html body .dyn-hero__logo .dlogo-2 { fill: #7f7f7f; }
+html[data-theme="light"] body .dyn-hero__logo .dlogo-1,
+html[data-theme="light"] body .dyn-hero__logo .dlogo-2 { fill: #003c56; } /* azul de marca, un tono mas claro */
+/* En claro la sombra negra es muy fuerte: la quitamos */
+html[data-theme="light"] body .dyn-hero__logo { filter: none; }
