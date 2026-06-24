@@ -18,6 +18,7 @@
       '<circle cx="9" cy="8" r="3"/><path d="M3 19a6 6 0 0112 0"/><path d="M16 5.5a3 3 0 010 5.5"/><path d="M16.5 14.2A6 6 0 0121 19"/>',
     conex:
       '<circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6.5 7.2L11 16.5M17.5 7.2L13 16.5M7 6h10"/>',
+    eye: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
     spark: '<path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/>',
     list: '<path d="M4 7h16M4 12h16M4 17h16"/>',
     add: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
@@ -39,7 +40,7 @@
       },
       {
         text: "Comités",
-        icon: I.conex,
+        icon: I.eye,
         items: [
           { text: "Ver Todos", href: "comites.html", icon: I.list, match: ["comites.html"] },
           { text: "Crear Nuevo", href: "comites-nuevo.html", icon: I.add, match: ["comites-nuevo"] }

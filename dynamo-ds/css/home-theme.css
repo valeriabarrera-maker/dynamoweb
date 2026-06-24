@@ -886,3 +886,55 @@ html body [data-slot="dialog-content"] {
   border-top: var(--dyn-stroke) solid var(--dyn-cyan) !important;
   box-shadow: var(--dyn-shadow-xl), var(--dyn-glow-cyan) !important;
 }
+
+/* =========================================================
+   Banner de bienvenida (Inicio) con el robot Dynamo
+   ========================================================= */
+html body .dyn-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--dyn-radius-xl, 16px);
+  border: 1px solid var(--dyn-border);
+  background:
+    radial-gradient(120% 140% at 88% 20%, rgba(0, 227, 232, 0.18), transparent 55%),
+    linear-gradient(120deg, var(--dyn-bg-deep) 0%, var(--dyn-surface) 55%, var(--dyn-surface-2) 100%);
+  box-shadow: var(--dyn-shadow-xl), var(--dyn-glow-cyan);
+}
+html body .dyn-hero__body {
+  position: relative;
+  z-index: 2;
+  padding: 2.25rem 2.5rem;
+  max-width: 70%;
+}
+html body .dyn-hero__title { color: var(--dyn-text) !important; }
+html body .dyn-hero__subtitle { color: var(--dyn-text-muted) !important; }
+html body .dyn-hero__robot {
+  position: absolute;
+  z-index: 1;
+  top: 28px;
+  bottom: auto;
+  right: 110px;
+  height: 200%;
+  width: auto;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 0 26px rgba(0, 227, 232, 0.45));
+}
+html[data-theme="light"] body .dyn-hero__robot {
+  filter: none;
+}
+@media (max-width: 900px) {
+  html body .dyn-hero__body { max-width: 100%; }
+  html body .dyn-hero__robot { opacity: 0.18; right: -16px; }
+}
+
+/* =========================================================
+   Pin Concejo (emblema en "Último comité registrado")
+   ========================================================= */
+html body .dyn-pin-concejo {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
+  transition: var(--dyn-transition, 160ms ease);
+}
+html body .dyn-pin-concejo:hover {
+  filter: drop-shadow(0 0 16px rgba(0, 227, 232, 0.35));
+}
